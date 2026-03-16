@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Text to Speech Example</title>
+<link rel="manifest" href="manifest.json" />
+<meta name="theme-color" content="#4a6cf7" />
+</head>
+<body>
+<textarea id="textInput" rows="4" cols="50" placeholder="Type something...">
+The Web Speech API provides functionality for speech synthesis (text-to-speech) in JavaScript. This allows you to convert text into spoken words, making your web applications more accessible and engaging.   
+</textarea><br>
+<button onclick="speak()">Speak</button>
+<script>
+function speak() {
+const text = document.getElementById('textInput').value;
+const utterance = new SpeechSynthesisUtterance(text);
+window.speechSynthesis.speak(utterance);
+}
+</script>
+
+<!-- Service Worker Registration -->
+<script>
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+            .then(registration => {
+                console.log('SW registered: ', registration);
+            })
+            .catch(registrationError => {
+                console.log('SW registration failed: ', registrationError);
+            });
+    });
+}
+</script>
+</body>
+</html>
